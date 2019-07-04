@@ -16,15 +16,7 @@ class CleaningTaskValidator: Validator {
         logger.info("Validating a Building{}", task)
         val cleaningTask = task as Building
 
-        if(cleaningTask.seniorCleanerCapacity < MIN_CLEANING_CAPACITY){
-            errors.reject(MIN_CLEANING_CAPACITY_SENIOR_ERROR_MSG)
-        }
-
-        if(cleaningTask.juniorCleaningCapacity < MIN_CLEANING_CAPACITY){
-            errors.reject(MIN_CLEANING_CAPACITY_JUNIOR_ERROR_MSG)
-        }
-
-       val roomMinErrors = cleaningTask.rooms.filter{
+        val roomMinErrors = cleaningTask.rooms.filter{
             it < MIN_ROOM_COUNT
         }
 
@@ -40,6 +32,14 @@ class CleaningTaskValidator: Validator {
             errors.reject(MAX_ROOM_COUNT_ERROR_MSG)
         }
 
+
+        if(cleaningTask.seniorCleanerCapacity < MIN_CLEANING_CAPACITY){
+            errors.reject(MIN_CLEANING_CAPACITY_SENIOR_ERROR_MSG)
+        }
+
+        if(cleaningTask.juniorCleaningCapacity < MIN_CLEANING_CAPACITY){
+            errors.reject(MIN_CLEANING_CAPACITY_JUNIOR_ERROR_MSG)
+        }
     }
 
     override fun supports(clazz: Class<*>): Boolean {
