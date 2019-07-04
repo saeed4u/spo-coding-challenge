@@ -1,4 +1,4 @@
-package saeed.spo.challenge.cleaningoptimization
+package saeed.spo.challenge.scheduling
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
