@@ -5,15 +5,20 @@ import saeed.spo.challenge.scheduling.model.Result
 
 class ValidationResult : Result {
 
-    private val errors: Set<Message> = LinkedHashSet()
+   private val errors: HashSet<Message> = LinkedHashSet()
 
     override fun wasSuccessful(): Boolean {
         return errors.isEmpty()
     }
 
     fun addError(error: Message): ValidationResult {
-        this.errors.plus(error)
+        System.out.println("Adding an error")
+        this.errors.add(error)
         return this
+    }
+
+    fun getErrors(): HashSet<Message>{
+        return errors
     }
 
     override fun toString(): String {
