@@ -12,7 +12,6 @@ class ValidationResult : Result {
     }
 
     fun addError(error: Message): ValidationResult {
-        System.out.println("Adding an error")
         this.errors.add(error)
         return this
     }
