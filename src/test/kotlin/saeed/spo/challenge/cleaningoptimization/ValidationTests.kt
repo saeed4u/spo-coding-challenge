@@ -105,7 +105,7 @@ class ValidationTests {
     }
 
     @Test
-    fun testForWhenSeniorCapacityIsLessThanMin(){
+    fun testForWhenSeniorCapacityIsLessThanMin() {
         val rooms = generateRoomList(2, 10, 95)
         val generatedBuildingSize = buildings.size
         for (i in generatedBuildingSize..99) {
@@ -119,7 +119,7 @@ class ValidationTests {
     }
 
     @Test
-    fun testForWhenCapacityIsLessThanMin(){
+    fun testForWhenCapacityIsLessThanMin() {
         val rooms = generateRoomList(2, 10, 95)
         val generatedBuildingSize = buildings.size
         for (i in generatedBuildingSize..99) {
@@ -132,6 +132,14 @@ class ValidationTests {
         assertThat(Message.message(MIN_CLEANING_CAPACITY_SENIOR_ERROR_MSG)).isIn(errors)
         assertThat(Message.message(MIN_CLEANING_CAPACITY_JUNIOR_ERROR_MSG)).isIn(errors)
         assertThat(Message.message(JUNIOR_CLEANER_CAPACITY_GREATER_EQUAL_TO_SENIOR_CLEANER)).isIn(errors)
+    }
+
+    @Test
+    fun testForWhenInputDataIsValidAndCorrect() {
+        val validator = BuildingValidator(buildings)
+        val validationResult = validator.validate()
+        val errors = validationResult.getErrors()
+        assertThat(0).isEqualTo(errors.size)
     }
 
 }
