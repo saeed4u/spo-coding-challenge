@@ -19,16 +19,17 @@ class BuildingValidator(private val buildings: List<Building>) {
 
         //min check
         if (buildings.size < MIN_BUILD_COUNT) {
-            validationResult.addError(Message(MIN_BUILDING_COUNT_ERROR_MSG))
+            return validationResult.addError(Message(MIN_BUILDING_COUNT_ERROR_MSG))
         }
 
         //max check
         if (buildings.size > MAX_BUILDING_COUNT) {
-            validationResult.addError(Message.message(MAX_BUILDING_COUNT_ERROR_MSG))
+            return validationResult.addError(Message.message(MAX_BUILDING_COUNT_ERROR_MSG))
         }
 
-        //we use Spring's validation engine to validate cleaning tasks
         buildings.forEach {
+
+            //we use Spring's validation engine to validate cleaning tasks
             val dataBinder = DataBinder(it)
             dataBinder.addValidators(CleaningTaskValidator())
             dataBinder.validate()
