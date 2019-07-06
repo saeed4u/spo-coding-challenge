@@ -3,9 +3,9 @@ package saeed.spo.challenge.cleaningoptimization
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import saeed.spo.challenge.scheduling.model.Building
-import saeed.spo.challenge.scheduling.model.Message
-import saeed.spo.challenge.scheduling.model.validation.BuildingValidator
+import saeed.spo.challenge.scheduling.common.model.Building
+import saeed.spo.challenge.scheduling.common.model.Message
+import saeed.spo.challenge.scheduling.common.validation.BuildingValidator
 import saeed.spo.challenge.scheduling.util.*
 import kotlin.random.Random
 

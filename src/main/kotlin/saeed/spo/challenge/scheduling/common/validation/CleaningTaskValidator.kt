@@ -1,8 +1,8 @@
-package saeed.spo.challenge.scheduling.model.validation
+package saeed.spo.challenge.scheduling.common.validation
 
 import org.springframework.validation.Errors
 import org.springframework.validation.Validator
-import saeed.spo.challenge.scheduling.model.Building
+import saeed.spo.challenge.scheduling.common.model.Building
 import saeed.spo.challenge.scheduling.util.*
 
 

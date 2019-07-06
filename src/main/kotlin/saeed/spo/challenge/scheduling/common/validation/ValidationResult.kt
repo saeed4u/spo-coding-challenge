@@ -1,7 +1,7 @@
-package saeed.spo.challenge.scheduling.model.validation
+package saeed.spo.challenge.scheduling.common.validation
 
-import saeed.spo.challenge.scheduling.model.Message
-import saeed.spo.challenge.scheduling.model.Result
+import saeed.spo.challenge.scheduling.common.model.Message
+import saeed.spo.challenge.scheduling.common.model.Result
 
 class ValidationResult : Result {
 
