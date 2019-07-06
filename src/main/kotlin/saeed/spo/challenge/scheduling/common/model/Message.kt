@@ -1,4 +1,4 @@
-package saeed.spo.challenge.scheduling.model
+package saeed.spo.challenge.scheduling.common.model
 
 import org.apache.commons.lang3.StringUtils
 

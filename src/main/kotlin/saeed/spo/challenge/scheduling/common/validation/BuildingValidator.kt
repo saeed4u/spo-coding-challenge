@@ -1,8 +1,8 @@
-package saeed.spo.challenge.scheduling.model.validation
+package saeed.spo.challenge.scheduling.common.validation
 
 import org.springframework.validation.DataBinder
-import saeed.spo.challenge.scheduling.model.Building
-import saeed.spo.challenge.scheduling.model.Message
+import saeed.spo.challenge.scheduling.common.model.Building
+import saeed.spo.challenge.scheduling.common.model.Message
 import saeed.spo.challenge.scheduling.util.MAX_BUILDING_COUNT
 import saeed.spo.challenge.scheduling.util.MAX_BUILDING_COUNT_ERROR_MSG
 import saeed.spo.challenge.scheduling.util.MIN_BUILD_COUNT
