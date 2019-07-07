@@ -1,7 +1,6 @@
-package saeed.spo.challenge.cleaningoptimization
+package saeed.spo.challenge.cleaningoptimization.entity.validation
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import saeed.spo.challenge.scheduling.common.model.Building
 import saeed.spo.challenge.scheduling.common.model.Message
@@ -11,33 +10,22 @@ import kotlin.random.Random
 
 class ValidationTests {
 
-    private lateinit var buildings: ArrayList<Building>
+    private lateinit var building: Building
 
     val random = Random(100)
 
-    @BeforeEach
-    fun init() {
-        buildings = arrayListOf()
-        for (i in 1..random.nextInt(50, 95)) {
-            buildings.add(Building(listOf(1, 2, 4, 5, 4, 2), 4, 3))
-        }
-    }
-
-    private fun generateRoomList(size: Int = 50, minRoom: Int = 1, maxRoom: Int = 50): List<Int> {
+    private fun generateBuilding(size: Int = 50, minRoom: Int = 1, maxRoom: Int = 50, seniorCapacity: Int = 10, juniorCapacity: Int = 6) {
         val rooms = arrayListOf<Int>()
         for (i in 1..size) {
             rooms.add(random.nextInt(minRoom, maxRoom))
         }
-        return rooms
+        building = Building(rooms,seniorCapacity,juniorCapacity)
     }
 
     @Test
     fun testForWhenThereIsTooManyBuildings() {
-        val generatedBuildingSize = buildings.size
-        for (i in generatedBuildingSize..101) {
-            buildings.add(Building(listOf(1, 2, 4, 5, 4, 2), 4, 3))
-        }
-        val validator = BuildingValidator(buildings)
+        generateBuilding(102)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val buildingTooManyError = validationResult.getErrors().filter {
             it == Message.message(MAX_BUILDING_COUNT_ERROR_MSG)
@@ -48,8 +36,8 @@ class ValidationTests {
 
     @Test
     fun testForWhenThereIsNoBuilding() {
-        buildings.clear()
-        val validator = BuildingValidator(buildings)
+        generateBuilding(0)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val noBuildingError = validationResult.getErrors().filter {
             it == Message.message(MIN_BUILDING_COUNT_ERROR_MSG)
@@ -59,25 +47,9 @@ class ValidationTests {
     }
 
     @Test
-    fun testForWhenBuildingHasNoRoom() {
-        buildings.clear()
-        buildings.add(Building(listOf(), 5, 4))
-        val validator = BuildingValidator(buildings)
-        val validationResult = validator.validate()
-        val errors = validationResult.getErrors()
-        assertThat(1).isEqualTo(errors.size)
-        assertThat(Message.message(NO_ROOM_IN_BUILDING_ERROR_MSG)).isEqualTo(errors.first())
-
-    }
-
-    @Test
     fun testForWhenRoomCountIsMoreThanMax() {
-        val rooms = generateRoomList(2, 101, 105)
-        val generatedBuildingSize = buildings.size
-        for (i in generatedBuildingSize..99) {
-            buildings.add(Building(rooms, 4, 3))
-        }
-        val validator = BuildingValidator(buildings)
+        generateBuilding(minRoom = 100, maxRoom = 104)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         System.out.println(validationResult)
         val errors = validationResult.getErrors()
@@ -91,12 +63,8 @@ class ValidationTests {
 
     @Test
     fun testForWhenRoomCountIsLessThanMin() {
-        val rooms = generateRoomList(2, -1, 0)
-        val generatedBuildingSize = buildings.size
-        for (i in generatedBuildingSize..98) {
-            buildings.add(Building(rooms, 4, 3))
-        }
-        val validator = BuildingValidator(buildings)
+        generateBuilding(minRoom = 0,maxRoom = 1)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val errors = validationResult.getErrors()
         assertThat(1).isEqualTo(errors.size)
@@ -106,26 +74,18 @@ class ValidationTests {
 
     @Test
     fun testForWhenSeniorCapacityIsLessThanMin() {
-        val rooms = generateRoomList(2, 10, 95)
-        val generatedBuildingSize = buildings.size
-        for (i in generatedBuildingSize..99) {
-            buildings.add(Building(rooms, 0, 3))
-        }
-        val validator = BuildingValidator(buildings)
+        generateBuilding(seniorCapacity = 0,juniorCapacity = 1)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val errors = validationResult.getErrors()
-        assertThat(1).isEqualTo(errors.size)
+        assertThat(2).isEqualTo(errors.size)
         assertThat(Message.message(MIN_CLEANING_CAPACITY_SENIOR_ERROR_MSG)).isEqualTo(errors.first())
     }
 
     @Test
     fun testForWhenCapacityIsLessThanMin() {
-        val rooms = generateRoomList(2, 10, 95)
-        val generatedBuildingSize = buildings.size
-        for (i in generatedBuildingSize..99) {
-            buildings.add(Building(rooms, 0, 0))
-        }
-        val validator = BuildingValidator(buildings)
+        generateBuilding(seniorCapacity = 0,juniorCapacity = 0)
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val errors = validationResult.getErrors()
         assertThat(3).isEqualTo(errors.size)
@@ -136,7 +96,8 @@ class ValidationTests {
 
     @Test
     fun testForWhenInputDataIsValidAndCorrect() {
-        val validator = BuildingValidator(buildings)
+        generateBuilding()
+        val validator = BuildingValidator(building)
         val validationResult = validator.validate()
         val errors = validationResult.getErrors()
         assertThat(0).isEqualTo(errors.size)
