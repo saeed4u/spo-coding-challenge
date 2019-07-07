@@ -27,15 +27,15 @@ class CleaningTaskValidator : Validator {
             errors.reject(MAX_ROOM_COUNT_ERROR_MSG)
         }
 
-        if (cleaningTask.seniorCleanerCapacity < MIN_CLEANING_CAPACITY) {
+        if (cleaningTask.senior < MIN_CLEANING_CAPACITY) {
             errors.reject(MIN_CLEANING_CAPACITY_SENIOR_ERROR_MSG)
         }
 
-        if (cleaningTask.juniorCleaningCapacity < MIN_CLEANING_CAPACITY) {
+        if (cleaningTask.junior < MIN_CLEANING_CAPACITY) {
             errors.reject(MIN_CLEANING_CAPACITY_JUNIOR_ERROR_MSG)
         }
 
-        if (cleaningTask.seniorCleanerCapacity <= cleaningTask.juniorCleaningCapacity) {
+        if (cleaningTask.senior <= cleaningTask.junior) {
             errors.reject(JUNIOR_CLEANER_CAPACITY_GREATER_EQUAL_TO_SENIOR_CLEANER)
         }
 

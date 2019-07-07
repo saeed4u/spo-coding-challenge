@@ -10,12 +10,15 @@ import saeed.spo.challenge.scheduling.common.application.service.ResourceOptimis
 @SpringBootApplication
 class CleaningOptimizationApplication {
 
-	fun main(args: Array<String>) {
-		runApplication<CleaningOptimizationApplication>(*args)
-	}
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<CleaningOptimizationApplication>(*args)
+        }
+    }
 
-	@Bean
-	fun linearOptimiser(): ResourceOptimiser {
-		return ResourceOptimiserFactory.makeOptimiser(ResourceOptimiserType.LINEAR)
-	}
+    @Bean
+    fun linearOptimiser(): ResourceOptimiser {
+        return ResourceOptimiserFactory.makeOptimiser(ResourceOptimiserType.LINEAR)
+    }
 }

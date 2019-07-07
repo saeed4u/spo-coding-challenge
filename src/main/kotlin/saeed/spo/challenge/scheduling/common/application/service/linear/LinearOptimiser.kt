@@ -19,10 +19,10 @@ class LinearOptimiser : ResourceOptimiser {
         val optimizedResult = arrayListOf<OptimiserResponse>()
         rooms.forEach {
             //senior capacity >=1
-            val initialSeniorCount = ceil(it.toDouble() / building.seniorCleanerCapacity).toInt()
+            val initialSeniorCount = ceil(it.toDouble() / building.senior).toInt()
             //junior capacity >=0
             val initialJuniorCount = 0
-            val results = optimise(building,it, getGreatestCommonDivisor(building.seniorCleanerCapacity, building.juniorCleaningCapacity), initialSeniorCount, initialJuniorCount, initialSeniorCount, initialJuniorCount)
+            val results = optimise(building,it, getGreatestCommonDivisor(building.senior, building.junior), initialSeniorCount, initialJuniorCount, initialSeniorCount, initialJuniorCount)
             optimizedResult.add(OptimiserResponse(results[0], results[1]))
         }
         return optimizedResult
@@ -34,13 +34,13 @@ class LinearOptimiser : ResourceOptimiser {
 
     private fun optimise(building: Building,roomSize: Int, minInterval: Int, previousSeniorCount: Int, previousJuniorCount: Int, currentSeniorCount: Int, currentJuniorCount: Int): List<Int> {
         // a linear equation of senior and junior variables
-        val staffCapacity = calculateStaffCapacity(building.seniorCleanerCapacity,currentSeniorCount,building.juniorCleaningCapacity,currentJuniorCount)
+        val staffCapacity = calculateStaffCapacity(building.senior,currentSeniorCount,building.junior,currentJuniorCount)
         val spaceLeft = abs(roomSize - staffCapacity)
 
         //do we have the space left lesser than what's allowed? and if so do we have equilibrium(staffCapacity >= room size)?
         if (spaceLeft <= minInterval && staffCapacity >= roomSize) {
             if (staffCapacity > roomSize){
-                val currentStaffCapacityWithOnlySeniors = calculateStaffCapacity(building.seniorCleanerCapacity,currentSeniorCount)
+                val currentStaffCapacityWithOnlySeniors = calculateStaffCapacity(building.senior,currentSeniorCount)
                 if (currentSeniorCount > 1 && currentStaffCapacityWithOnlySeniors > roomSize){
                     return optimise(building,roomSize, minInterval, currentSeniorCount, currentJuniorCount, currentSeniorCount - 1, currentJuniorCount + 1)
                 }
@@ -48,7 +48,7 @@ class LinearOptimiser : ResourceOptimiser {
             return listOf(currentSeniorCount, currentJuniorCount)
         }
 
-        if (spaceLeft > min(building.seniorCleanerCapacity, building.juniorCleaningCapacity) && staffCapacity < roomSize) {
+        if (spaceLeft > min(building.senior, building.junior) && staffCapacity < roomSize) {
             return listOf(previousSeniorCount, previousJuniorCount)
         }
 
