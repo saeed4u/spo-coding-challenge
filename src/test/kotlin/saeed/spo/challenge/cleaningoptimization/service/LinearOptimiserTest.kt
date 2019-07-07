@@ -17,8 +17,6 @@ class LinearOptimiserTest {
 
     lateinit var linearOptimiser: ResourceOptimiser
 
-    private val logger = LoggerFactory.getLogger(LinearOptimiser::class.java)
-
     @BeforeEach
     fun init() {
         linearOptimiser = ResourceOptimiserFactory.makeOptimiser(ResourceOptimiserType.LINEAR)
