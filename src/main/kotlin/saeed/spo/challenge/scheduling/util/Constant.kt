@@ -13,7 +13,7 @@ const val MAX_ROOM_COUNT = 100
 const val MIN_ROOM_COUNT = 1
 
 const val MAX_ROOM_COUNT_ERROR_MSG = "err.building.room.maxCountIs100"
-const val MIN_ROOM_COUNT_ERROR_MSG = "err.building.room.minCountIs100"
+const val MIN_ROOM_COUNT_ERROR_MSG = "err.building.room.minCountIs1"
 
 //cleaners
 const val MIN_CLEANING_CAPACITY = 1

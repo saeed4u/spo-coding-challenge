@@ -11,11 +11,6 @@ class CleaningTaskValidator : Validator {
     override fun validate(task: Any, errors: Errors) {
         val cleaningTask = task as Building
 
-        if (cleaningTask.rooms.isEmpty()) {
-            errors.reject(NO_ROOM_IN_BUILDING_ERROR_MSG)
-            return
-        }
-
         val roomMinErrors = cleaningTask.rooms.filter {
             it < MIN_ROOM_COUNT
         }
