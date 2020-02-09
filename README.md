@@ -15,7 +15,7 @@ http://locahost:8080
 /api/optimiser
 
 ####Sample payload and response
-##### A response has an error(boolean) and message(string) attributes. A results attribute is returned only available when optimisation succeeds. All responses will return an appropriate HTTP status code.
+##### A response has an error(boolean) and message(string) attributes. A results attribute is returned only when optimisation succeeds. All responses will return the appropriate HTTP status code.
 
 * Request payload<br/>
 	```json 
